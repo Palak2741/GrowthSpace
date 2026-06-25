@@ -61,8 +61,8 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           port: ${{ secrets.FTP_PORT }} # optional
-          local-dir: dist
-          server-dir: /public_html
+          local-dir: dist/
+          server-dir: /public_html/
 ```
 
 Notes and troubleshooting
