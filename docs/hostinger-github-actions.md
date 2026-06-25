@@ -51,8 +51,7 @@ jobs:
       - name: Build
         run: |
           npm run build
-          # If you use next export explicitly
-          npx next export
+          npx next export -o dist
 
       - name: Upload to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.0

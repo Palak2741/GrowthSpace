@@ -24,6 +24,7 @@ jobs:
         run: |
           npm run build
           npx next export || true
+          cp public/.htaccess dist/.htaccess
 
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
