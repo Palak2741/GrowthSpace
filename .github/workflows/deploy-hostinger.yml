@@ -36,3 +36,4 @@ jobs:
           local-dir: dist/
           server-dir: /
           delete: true
+          dangerous-clean-slate: true
