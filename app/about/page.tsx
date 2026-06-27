@@ -13,21 +13,21 @@ const team = [
     name: "Animesh Khosla",
     role: "Founder",
     bio: "Visionary leader with deep expertise in growth strategy, performance marketing, and business development. Driving GrowthSpare's mission to deliver end-to-end growth solutions.",
-    image: "/images/case-studies/WhatsApp_Image_2026-06-24_at_4.01.59_PM.jpeg",
+    image: "/images/case-studies/animersh.png",
     accent: "Founder",
   },
   {
     name: "Palak Katiyar",
     role: "Operations & Technology",
     bio: "Technology and operations expert overseeing project delivery, software development, and AI implementations. Ensures seamless execution across all initiatives.",
-    image: "/images/case-studies/WhatsApp_Image_2026-06-24_at_4.01.58_PM.jpeg",
+    image: "/images/case-studies/palak.png",
     accent: "Operations",
   },
   {
     name: "Arun Khosla",
     role: "Director",
     bio: "Strategic advisor with extensive business experience. Guides company vision, partnerships, and long-term growth strategy.",
-    image: "/images/case-studies/WhatsApp_Image_2026-06-24_at_4.01.58_PM_(1).jpeg",
+    image: "/images/case-studies/arun.png",
     accent: "Director",
   },
 ];
@@ -132,7 +132,7 @@ export default function AboutPage() {
             {/* Left — Photo + Stats */}
             <div className="relative">
               <img
-                src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=600"
+                src="/images/case-studies/animersh.png"
                 alt="Animesh Khosla - Founder"
                 className="w-full max-w-sm rounded-3xl object-cover shadow-2xl"
               />
