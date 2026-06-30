@@ -4,6 +4,7 @@ import { ArrowRight, Clock, ChevronLeft, ChevronRight } from "lucide-react";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { sanityClient } from "@/lib/sanity";
 
 export const metadata: Metadata = {
   title: "Blog — Digital Marketing Insights | GrowthSpare",
@@ -37,8 +38,43 @@ function readPosts() {
   return posts;
 }
 
-export default function BlogPage() {
-  const posts = readPosts();
+async function readSanityPosts() {
+  try {
+    const query = `*[_type == "post"] | order(publishedAt desc) {
+      title,
+      "slug": slug.current,
+      excerpt,
+      "image": mainImage.asset->url,
+      category,
+      author,
+      "date": publishedAt,
+      readTime,
+      featured
+    }`;
+    const sanityPosts = await sanityClient.fetch(query);
+    return sanityPosts.map((p: any) => ({
+      ...p,
+      date: p.date
+        ? new Date(p.date).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })
+        : "",
+    }));
+  } catch (e) {
+    console.error("Error loading posts from Sanity", e);
+    return [];
+  }
+}
+
+export default async function BlogPage() {
+  const localPosts = readPosts();
+  const sanityPosts = await readSanityPosts();
+  const posts = [...sanityPosts, ...localPosts];
+  // Sort posts by date descending
+  posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
   const featured = posts.filter((p) => p.featured);
   const regular = posts.filter((p) => !p.featured);
 
