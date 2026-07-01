@@ -1,6 +1,6 @@
 # GrowthSpare Next.js Blog & CMS Integration
 
-This project is built using Next.js (App Router) version 14.2.35 and is deployed to **Cloudflare Pages** using the native Cloudflare Workers Edge runtime. It integrates **Sanity CMS** for dynamic content editing.
+This project is built using Next.js (App Router) version 14.2.35 and is deployed to **Netlify** using native serverless hosting. It integrates **Sanity CMS** for dynamic content editing.
 
 ---
 
@@ -19,10 +19,12 @@ This project is built using Next.js (App Router) version 14.2.35 and is deployed
 
 ---
 
-## 2. Cloudflare Pages Deployment Configuration
+## 2. Netlify Deployment Configuration
+
+Next.js App Router works natively on Netlify without any custom adapter files.
 
 ### Environment Variables
-Configure the following Environment Variables in your Cloudflare Pages dashboard under **Settings > Variables**:
+Configure the following Environment Variables in your Netlify dashboard under **Site configuration > Environment variables**:
 
 | Variable Name | Description | Example |
 |---|---|---|
@@ -31,17 +33,17 @@ Configure the following Environment Variables in your Cloudflare Pages dashboard
 | `NEXT_PUBLIC_SITE_URL` | Production website base URL | `https://growthspace.co` |
 | `SANITY_REVALIDATE_SECRET` | Secret token verifying webhook calls | `yourSecretToken` |
 
-### Cloudflare Pages Settings (Git Integration)
-- **Framework Preset**: `Next.js`
-- **Build Command**: `npx @cloudflare/next-on-pages` (or `npm run build` with next-on-pages integration)
-- **Build Output Directory**: `.vercel/output` (automatically detected by the Cloudflare Pages builder)
+### Netlify Build Settings
+When you link your repository, Netlify automatically detects Next.js. Keep the default settings:
+- **Build Command**: `npm run build`
+- **Publish Directory**: `.next`
 
 ---
 
 ## 3. Sanity CMS Webhook Integration (On-Demand Cache Revalidation)
 
-Since we are running on the Cloudflare Edge runtime, we support **on-demand revalidation** via our webhook `/api/revalidate`. When you publish a post inside Sanity Studio, it will instantly refresh the website cache without needing a full site build!
+To instantly purge the page cache when blog posts are modified in Sanity (without rebuilding the whole project):
 
 1. Go to your **Sanity Management Console (sanity.io/manage)**, navigate to **Webhooks**, and click **Create Webhook**.
-2. Set the **URL** to: `https://YOUR_DOMAIN.com/api/revalidate?secret=YOUR_SANITY_REVALIDATE_SECRET`.
+2. Set the **URL** to: `https://YOUR_DOMAIN.netlify.app/api/revalidate?secret=YOUR_SANITY_REVALIDATE_SECRET`.
 3. Configure the webhook to trigger on `post` publishing.
