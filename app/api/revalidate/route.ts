@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 
+export async function GET() {
+  return NextResponse.json(
+    { message: 'This endpoint only accepts POST requests from Sanity CMS webhooks.' },
+    { status: 405 }
+  );
+}
+
 export async function POST(request: NextRequest) {
   try {
     const secret = request.nextUrl.searchParams.get('secret');
