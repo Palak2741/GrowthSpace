@@ -2,6 +2,9 @@
 
 # dependencies
 /node_modules
+/studio-cms/node_modules
+/studio-cms/.sanity
+/studio-cms/dist
 /.pnp
 .pnp.js
 
